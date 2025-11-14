@@ -1,3 +1,4 @@
-# Discover-your-local-worldDiscover Your Local World is a location-based web application designed to help users quickly find essential services around them and to give visibility to local businesses, vendors, farmers, home-based entrepreneurs, and service providers.
+# Discover-your-local-world
+Discover Your Local World is a location-based web application designed to help users quickly find essential services around them and to give visibility to local businesses, vendors, farmers, home-based entrepreneurs, and service providers.
 The platform acts as a bridge between people who need nearby services and small businesses wanting to reach more customers.
 This project aims to digitalize the “local market” by providing an online space where any service provider — from technicians and medical stores to home cooks and small farmers — can showcase their offerings and receive customer inquiries.
