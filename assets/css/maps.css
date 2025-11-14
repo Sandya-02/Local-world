@@ -1,0 +1,102 @@
+/* Map Container */
+.map-container {
+    display: flex;
+    height: calc(100vh - 56px);
+    margin-top: 56px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 350px;
+    background: #fff;
+    padding: 1rem;
+    overflow-y: auto;
+    border-right: 1px solid #dee2e6;
+}
+
+/* Map */
+#map {
+    flex-grow: 1;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Search Box */
+.search-box {
+    margin-bottom: 1rem;
+}
+
+.search-box .input-group {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Distance Slider */
+.filter-group {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-weight: 500;
+}
+
+.distance-slider {
+    padding: 0.5rem 0;
+}
+
+input[type="range"] {
+    width: 100%;
+    background: #007bff;
+}
+
+#distance-value {
+    color: #007bff;
+    font-weight: 600;
+}
+
+/* Results List */
+.results-list {
+    background: #fff;
+    border-radius: 0.5rem;
+}
+
+.results-list .list-group-item {
+    border-left: none;
+    border-right: none;
+    padding: 1rem;
+}
+
+.results-list .list-group-item:first-child {
+    border-top: none;
+}
+
+.results-list .list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .map-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: 50%;
+    }
+    
+    #map {
+        height: 50%;
+    }
+}
+
+/* Current Location Marker */
+.current-location-marker {
+    color: #007bff;
+    font-size: 24px;
+} 

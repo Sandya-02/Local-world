@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - LocalFinder</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-blue: #4A90E2;
+            --primary-green: #50C878;
+            --light-gray: #F5F5F5;
+        }
+
+        .sidebar {
+            background-color: white;
+            height: calc(100vh - 56px);
+            position: sticky;
+            top: 56px;
+        }
+
+        .nav-link {
+            color: #666;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: var(--light-gray);
+            color: var(--primary-blue);
+        }
+
+        .nav-link.active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .stat-card {
+            border-left: 4px solid var(--primary-blue);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .booking-card {
+            transition: all 0.2s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateX(5px);
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .notification-item {
+            transition: background-color 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .notification-item:hover {
+            background-color: var(--light-gray);
+            border-left-color: var(--primary-blue);
+        }
+
+        .notification-item.unread {
+            background-color: #f8f9fa;
+            border-left-color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-store text-primary"></i> LocalFinder
+            </a>
+            <div class="d-flex align-items-center">
+                <div class="dropdown me-3">
+                    <a href="#" class="text-decoration-none position-relative" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell fa-lg text-muted"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notification-count" style="display: none;">
+                            0
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <h6 class="dropdown-header">Notifications</h6>
+                        <a class="dropdown-item" href="#">New booking request</a>
+                        <a class="dropdown-item" href="#">Message received</a>
+                        <a class="dropdown-item" href="#">Booking confirmed</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                        <div class="user-avatar-small rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 14px; font-weight: 600;" data-initials="JD">JD</div>
+                        <span class="ms-2 user-name">John Doe</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="handleLogout(); return false;"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-2 sidebar p-4">
+                <div class="d-flex flex-column gap-2">
+                    <a href="user-dashboard.html" class="nav-link active">
+                        <i class="fas fa-th-large me-2"></i> Dashboard
+                    </a>
+                    <a href="booking.html" class="nav-link">
+                        <i class="fas fa-calendar me-2"></i> Bookings
+                    </a>
+                    <a href="chat.html" class="nav-link">
+                        <i class="fas fa-comment me-2"></i> Messages
+                    </a>
+                    <a href="favorites.html" class="nav-link">
+                        <i class="fas fa-heart me-2"></i> Favorites
+                    </a>
+                    <a href="history.html" class="nav-link">
+                        <i class="fas fa-history me-2"></i> History
+                    </a>
+                    <a href="profile.html" class="nav-link">
+                        <i class="fas fa-user me-2"></i> Profile
+                    </a>
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog me-2"></i> Settings
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-10 p-4">
+                <!-- Welcome Section -->
+                <div class="d-flex justify-content-between align-items-center mb-4 dashboard-welcome">
+                    <div>
+                        <h2 class="mb-1">Welcome back, John!</h2>
+                        <p class="text-muted mb-0">Here's what's happening with your account.</p>
+                    </div>
+                    <a href="search-results.html" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> New Booking
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2">Total Bookings</h6>
+                                <h3 class="mb-0" id="total-bookings">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2">Active Bookings</h6>
+                                <h3 class="mb-0" id="active-bookings">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2">Completed</h6>
+                                <h3 class="mb-0" id="completed-bookings">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2">Saved Places</h6>
+                                <h3 class="mb-0" id="favorite-services">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Bookings -->
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Recent Bookings</h5>
+                            <a href="booking.html" class="text-decoration-none">View All</a>
+                        </div>
+                    </div>
+                    <div class="card-body recent-bookings-container">
+                        <!-- Bookings will be loaded dynamically -->
+                        <div class="text-center py-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">Recent Messages</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="notification-item p-3 unread">
+                                    <div class="d-flex gap-3">
+                                        <img src="assets/business-1.jpg" alt="Business" class="rounded-circle" width="40" height="40">
+                                        <div>
+                                            <h6 class="mb-1">Business Name</h6>
+                                            <p class="text-muted mb-0">New message regarding your booking...</p>
+                                            <small class="text-muted">2 hours ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- More message items -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">Favorite Places</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="notification-item p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex gap-3">
+                                            <img src="assets/business-2.jpg" alt="Business" class="rounded" width="40" height="40">
+                                            <div>
+                                                <h6 class="mb-1">Business Name</h6>
+                                                <p class="text-muted mb-0">Category • Location</p>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="text-danger">
+                                            <i class="fas fa-heart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- More favorite items -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Auth and Dashboard Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+</body>
+</html> 

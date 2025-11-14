@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - LocalFinder</title>
+    
+      <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Shared CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <!-- Page Specific CSS -->
+    <link href="assets/css/search-results.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4A90E2;
+            --primary-green: #50C878;
+            --light-gray: #F5F5F5;
+        }
+
+        #map {
+            height: calc(100vh - 56px);
+            position: sticky;
+            top: 56px;
+        }
+
+        .result-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .result-card:hover {
+            transform: translateX(5px);
+            border-left-color: var(--primary-blue);
+        }
+
+        .business-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .filter-section {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+        }
+
+        /* Skeleton Loading Animation */
+        @keyframes loading {
+            0% { background-position: -200px 0; }
+            100% { background-position: calc(200px + 100%) 0; }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+        }
+
+        .price-range-pill {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .price-range-pill.active {
+            background-color: var(--primary-blue) !important;
+            color: white;
+        }
+
+        /* Custom Range Slider */
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #ddd;
+            outline: none;
+            border-radius: 2px;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-store text-primary"></i> LocalFinder
+            </a>
+            <!-- Search Bar in Navigation -->
+            <form class="d-flex mx-auto col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search businesses..." value="Restaurants">
+                    <input type="text" class="form-control" placeholder="Location" value="New York, NY">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Filters Sidebar -->
+            <div class="col-lg-3 p-4 border-end">
+                <h4 class="mb-4">Filters</h4>
+                
+                <!-- Category Filter -->
+                <div class="filter-section pb-4 mb-4">
+                    <h6 class="mb-3">Category</h6>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" checked>
+                        <label class="form-check-label">Restaurants</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Cafes</label>
+                    </div>
+                    <!-- More categories -->
+                </div>
+
+                <!-- Price Range Filter -->
+                <div class="filter-section pb-4 mb-4">
+                    <h6 class="mb-3">Price Range</h6>
+                    <div class="d-flex gap-2 mb-3">
+                        <span class="badge bg-light text-dark price-range-pill active">$</span>
+                        <span class="badge bg-light text-dark price-range-pill">$$</span>
+                        <span class="badge bg-light text-dark price-range-pill">$$$</span>
+                        <span class="badge bg-light text-dark price-range-pill">$$$$</span>
+                    </div>
+                </div>
+
+                <!-- Rating Filter -->
+                <div class="filter-section pb-4 mb-4">
+                    <h6 class="mb-3">Rating</h6>
+                    <input type="range" class="range-slider" min="0" max="5" step="0.5" value="4">
+                    <div class="d-flex justify-content-between mt-2">
+                        <small>0</small>
+                        <small>5</small>
+                    </div>
+                </div>
+
+                <!-- Distance Filter -->
+                <div class="filter-section pb-4 mb-4">
+                    <h6 class="mb-3">Distance</h6>
+                    <select class="form-select">
+                        <option>Within 1 mile</option>
+                        <option>Within 5 miles</option>
+                        <option selected>Within 10 miles</option>
+                        <option>Within 20 miles</option>
+                    </select>
+                </div>
+
+                <!-- More Filters -->
+                <div class="filter-section pb-4 mb-4">
+                    <h6 class="mb-3">Features</h6>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Open Now</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Delivery Available</label>
+                    </div>
+                    <!-- More features -->
+                </div>
+            </div>
+
+            <!-- Search Results -->
+            <div class="col-lg-5 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0">245 Results Found</h4>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Sort by: Rating
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Rating</a></li>
+                            <li><a class="dropdown-item" href="#">Distance</a></li>
+                            <li><a class="dropdown-item" href="#">Price</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Results List -->
+                <div class="results-container">
+                    <!-- Result Card -->
+                    <div class="card result-card mb-3">
+                        <div class="card-body d-flex gap-3">
+                            <img src="assets/restaurant-1.jpg" alt="Restaurant" class="business-image">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="mb-1">Restaurant Name</h5>
+                                        <div class="rating-stars mb-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                            <span class="text-muted ms-1">(245)</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-light text-dark">$$</span>
+                                </div>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt"></i> 0.8 miles away
+                                </p>
+                                <p class="mb-2">Italian • Pizza • Pasta</p>
+                                <div class="d-flex gap-2">
+                                    <span class="badge bg-success">Open Now</span>
+                                    <span class="badge bg-info">Delivery</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- More result cards -->
+                </div>
+
+                <!-- Loading Skeleton -->
+                <div class="card result-card mb-3 skeleton">
+                    <div class="card-body" style="height: 120px;"></div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="col-lg-4 px-0">
+                <div id="map">
+                    <!-- Google Maps will be initialized here -->
+                    <img src="assets/map-placeholder.jpg" alt="Map" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    
+    <script>
+        function initMap() {
+            // Initialize Google Maps
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 40.7128, lng: -74.0060 },
+                zoom: 13
+            });
+            // Add markers for business locations
+        }
+    </script>
+</body>
+</html> 

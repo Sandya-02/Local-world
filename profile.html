@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalFinder - Profile</title>
+    
+    <!-- Core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/profile.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+        <!-- ... existing navbar code ... -->
+    </nav>
+
+    <!-- Profile Header -->
+<div class="profile-header">
+    <div class="container">
+        <div class="profile-info">
+            <div class="profile-avatar" data-initials="JD">
+                <!-- The initials will be added via CSS -->
+            </div>
+            <div class="profile-details">
+                <h1>John Doe</h1>
+                <p><i class="fas fa-map-marker-alt"></i> New York, USA</p>
+                <!-- ... rest of the profile info ... -->
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Profile Content -->
+    <div class="profile-content">
+        <div class="container">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-4">
+                    <!-- Services Card -->
+                    <div class="profile-card">
+                        <h3><i class="fas fa-tools"></i> Services</h3>
+                        <ul class="services-list">
+                            <li><i class="fas fa-hammer"></i> Home Repair</li>
+                            <li><i class="fas fa-paint-roller"></i> Painting</li>
+                            <li><i class="fas fa-plug"></i> Electrical Work</li>
+                            <li><i class="fas fa-wrench"></i> Plumbing</li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Card -->
+                    <div class="profile-card">
+                        <h3><i class="fas fa-address-card"></i> Contact Info</h3>
+                        <ul class="contact-list">
+                            <li><i class="fas fa-envelope"></i> john.doe@email.com</li>
+                            <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                            <li><i class="fas fa-globe"></i> www.johndoe.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-md-8">
+                    <!-- Reviews Section -->
+                    <div class="profile-card">
+                        <h3><i class="fas fa-star"></i> Recent Reviews</h3>
+                        
+                        <!-- Review Item -->
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <i class="fas fa-user-circle fa-2x"></i>
+                                    <div>
+                                        <h5>Alice Smith</h5>
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="review-date"><i class="far fa-calendar"></i> 2 days ago</span>
+                            </div>
+                            <p class="review-text">Excellent work on the home repairs. Very professional and thorough.</p>
+                        </div>
+
+                        <!-- Another Review Item -->
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <i class="fas fa-user-circle fa-2x"></i>
+                                    <div>
+                                        <h5>Bob Johnson</h5>
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="review-date"><i class="far fa-calendar"></i> 1 week ago</span>
+                            </div>
+                            <p class="review-text">Great painting job! Very neat and clean work.</p>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Section -->
+                    <!-- Portfolio Section -->
+<div class="profile-card">
+    <h3><i class="fas fa-briefcase"></i> Work Portfolio</h3>
+    <div class="portfolio-grid">
+        <div class="portfolio-item">
+            <i class="fas fa-tools"></i>
+            <span>Home Repair</span>
+            <small>25 Projects</small>
+        </div>
+        <div class="portfolio-item">
+            <i class="fas fa-paint-roller"></i>
+            <span>Painting</span>
+            <small>18 Projects</small>
+        </div>
+        <div class="portfolio-item">
+            <i class="fas fa-plug"></i>
+            <span>Electrical</span>
+            <small>15 Projects</small>
+        </div>
+        <div class="portfolio-item">
+            <i class="fas fa-wrench"></i>
+            <span>Plumbing</span>
+            <small>20 Projects</small>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Auth and Profile Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/profile.js"></script>
+</body>
+</html> 

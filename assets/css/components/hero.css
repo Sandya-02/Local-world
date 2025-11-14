@@ -1,0 +1,58 @@
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url('../images/hero-bg.jpg') center/cover;
+    min-height: 600px;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    animation: fadeInDown 0.8s ease;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+.hero-search {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.search-form {
+    display: flex;
+    gap: 15px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .search-form {
+        flex-direction: column;
+    }
+} 

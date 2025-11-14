@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - LocalFinder</title>
+    
+    <!-- Core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="./assets/css/styles.css" rel="stylesheet">
+    <link href="./assets/css/chat.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-map-marker-alt"></i>LocalFinder
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="search-results.html">
+                            <i class="fas fa-search"></i>Search
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="community.html">
+                            <i class="fas fa-users"></i>Community
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="booking.html">
+                            <i class="fas fa-calendar-alt"></i>Bookings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="chat.html">
+                            <i class="fas fa-comments"></i>Messages
+                            <span class="badge">3</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">
+                            <i class="fas fa-user-circle"></i>Profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Chat Interface -->
+    <div class="chat-container">
+        <!-- Chat Sidebar -->
+        <div class="chat-sidebar">
+            <div class="chat-search">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Search conversations...">
+                </div>
+            </div>
+            
+            <!-- Chat List -->
+            <div class="chat-list">
+                <div class="chat-item active">
+                    <div class="chat-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="John's Plumbing">
+                        <span class="status-dot online"></span>
+                    </div>
+                    <div class="chat-info">
+                        <h4>John's Plumbing</h4>
+                        <p>We'll be there in 20 minutes</p>
+                        <span class="chat-time">2m ago</span>
+                    </div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="chat-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Elite Cleaning">
+                        <span class="status-dot"></span>
+                    </div>
+                    <div class="chat-info">
+                        <h4>Elite Cleaning</h4>
+                        <p>Thank you for your booking!</p>
+                        <span class="chat-time">1h ago</span>
+                    </div>
+                </div>
+
+                <div class="chat-item unread">
+                    <div class="chat-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Quick Electricals">
+                        <span class="status-dot online"></span>
+                    </div>
+                    <div class="chat-info">
+                        <h4>Quick Electricals</h4>
+                        <p>Is 3 PM tomorrow good for you?</p>
+                        <span class="chat-time">3h ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Main -->
+        <div class="chat-main">
+            <div class="chat-header">
+                <div class="chat-contact">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="John's Plumbing">
+                    <div>
+                        <h4>John's Plumbing</h4>
+                        <p>Online</p>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="btn btn-light">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="btn btn-light">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="btn btn-light">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages">
+                <div class="message received">
+                    <div class="message-content">
+                        <p>Hello! How can we help you today?</p>
+                        <span class="message-time">10:00 AM</span>
+                    </div>
+                </div>
+
+                <div class="message sent">
+                    <div class="message-content">
+                        <p>Hi, I need help with a leaking faucet. When can someone come to fix it?</p>
+                        <span class="message-time">10:02 AM</span>
+                    </div>
+                </div>
+
+                <div class="message received">
+                    <div class="message-content">
+                        <p>We can send someone today. Would you be available in about 20 minutes?</p>
+                        <span class="message-time">10:03 AM</span>
+                    </div>
+                </div>
+
+                <div class="message sent">
+                    <div class="message-content">
+                        <p>Yes, that works perfectly!</p>
+                        <span class="message-time">10:03 AM</span>
+                    </div>
+                </div>
+
+                <div class="message received">
+                    <div class="message-content">
+                        <p>Great! We'll be there in 20 minutes.</p>
+                        <span class="message-time">10:04 AM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input">
+                <button class="btn btn-light">
+                    <i class="fas fa-paperclip"></i>
+                </button>
+                <input type="text" placeholder="Type a message...">
+                <button class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="./assets/js/chat.js"></script>
+</body>
+</html> 

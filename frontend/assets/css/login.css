@@ -1,0 +1,97 @@
+.login-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding-top: 50px;
+}
+
+.login-container {
+    margin-top: 2rem;
+}
+
+.login-card {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    border-radius: 15px 15px 0 0 !important;
+}
+
+.card-header h4 {
+    color: #333;
+    font-weight: 600;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+
+.form-control {
+    border-left: none;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+.form-check-label {
+    color: #6c757d;
+}
+
+.alert {
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-container {
+        margin-top: 1rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+}
+
+/* Animation */
+.login-card {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 

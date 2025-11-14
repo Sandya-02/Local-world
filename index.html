@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalFinder - Discover Your Local World</title>
+    
+    <!-- Core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+ 
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/index.css" rel="stylesheet">
+    <script src="./assets/js/search.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        .nav-link.btn-outline-primary {
+            border: 1px solid #0d6efd;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 8px 15px;
+        }
+
+        .nav-link.btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .nav-link.btn-primary {
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 8px 15px;
+        }
+
+        .nav-link.btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 8px 15px;
+        }
+
+        .hero-section {
+            background-image: url('https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0;
+            position: relative;
+        }
+
+        .hero-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-card {
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rating {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Address Bar -->
+    <div class="address-bar bg-light py-2">
+        <div class="container">
+            <p class="mb-0">
+                <i class="fas fa-map-marker-alt me-2"></i>
+                Your current location: <span id="current-location">123 Main Street, City, Country</span>
+                <a href="#" class="ms-2 text-primary" onclick="updateLocation()">Change</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-map-marker-alt"></i>LocalFinder
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="search-results.html">
+                            <i class="fas fa-search"></i>Search
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="community.html">
+                            <i class="fas fa-users"></i>Community
+                            <span class="badge">New</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="booking.html">
+                            <i class="fas fa-calendar-alt"></i>Bookings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chat.html">
+                            <i class="fas fa-comments"></i>Messages
+                            <span class="badge">3</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Auth Navigation -->
+                <ul class="navbar-nav" id="authNav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-outline-primary me-2" href="login.html">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-primary" href="registration.html">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="hero-content text-center">
+                    <h1 class="hero-title fade-in-down">
+                        Discover Your Local World
+                    </h1>
+                    <p class="hero-subtitle fade-in-up">
+                        Connect with the best local businesses and services in your neighborhood
+                    </p>
+                    <div class="hero-search fade-in">
+                        <form class="search-form" onsubmit="handleSearch(event)">
+                            <div class="input-group flex-grow-1">
+                                <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control" id="serviceInput" placeholder="What are you looking for?">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-location-dot"></i>
+                                </span>
+                                <input type="text" class="form-control" id="locationInput" placeholder="Location">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Categories Section -->
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Browse by Category</h2>
+                <p>Find the services you need</p>
+            </div>
+            
+            <div class="category-grid d-flex flex-row justify-content-between overflow-auto">
+                <!-- Food & Beverages -->
+                <a href="category.html?type=food" class="category-card flex-shrink-0 mx-2">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Food & Drinks</h3>
+                    <span class="count">250+ Places</span>
+                </a>
+
+                <!-- Healthcare -->
+                <a href="category.html?type=healthcare" class="category-card flex-shrink-0 mx-2">
+                    <div class="category-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Healthcare</h3>
+                    <span class="count">180+ Services</span>
+                </a>
+
+                <!-- Education -->
+                <a href="category.html?type=education" class="category-card flex-shrink-0 mx-2">
+                    <div class="category-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education</h3>
+                    <span class="count">120+ Centers</span>
+                </a>
+
+                <!-- Home Services -->
+                <a href="category.html?type=home" class="category-card flex-shrink-0 mx-2">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Home Services</h3>
+                    <span class="count">300+ Providers</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Services Section -->
+    <section id="featured-services" class="featured-section">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Restaurants & Cafes -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-category h-100">
+                        <div class="category-header">
+                            <h2>Popular Restaurants</h2>
+                            <a href="category.html?type=food" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4" alt="The Bistro">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> 4.8
+                                </div>
+                            </div>
+                            <div class="service-content">
+                                <h3>The Bistro</h3>
+                                <div class="location"><i class="fas fa-map-marker-alt"></i> Downtown</div>
+                                <div class="tags">
+                                    <span>Italian</span>
+                                    <span>Fine Dining</span>
+                                </div>
+                                <a href="category.html?type=food" class="btn btn-outline-primary btn-sm">View Menu</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Healthcare Services -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-category h-100">
+                        <div class="category-header">
+                            <h2>Healthcare Services</h2>
+                            <a href="category.html?type=healthcare" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d" alt="City Health Clinic">
+                                <div class="badge">24/7</div>
+                            </div>
+                            <div class="service-content">
+                                <h3>City Health Clinic</h3>
+                                <div class="location"><i class="fas fa-map-marker-alt"></i> Central</div>
+                                <div class="specialties">
+                                    <span>General Medicine</span>
+                                    <span>Pediatrics</span>
+                                </div>
+                                <a href="category.html?type=healthcare" class="btn btn-outline-primary btn-sm">Book Appointment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Services -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-category h-100">
+                        <div class="category-header">
+                            <h2>Education & Training</h2>
+                            <a href="category.html?type=education" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655" alt="Learning Hub">
+                                <div class="badge">Top Rated</div>
+                            </div>
+                            <div class="service-content">
+                                <h3>Learning Hub</h3>
+                                <div class="location"><i class="fas fa-map-marker-alt"></i> University District</div>
+                                <div class="courses">
+                                    <span>Mathematics</span>
+                                    <span>Sciences</span>
+                                </div>
+                                <a href="category.html?type=education" class="btn btn-outline-primary btn-sm">Explore Courses</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2>Ready to Join LocalFinder?</h2>
+                    <p>Register your business today and reach thousands of potential customers</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="registration.html" class="btn btn-light btn-lg">
+                        Get Started <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>About LocalFinder</h5>
+                    <p>Connecting you with the best local businesses and services in your neighborhood.</p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Categories</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="category.html?type=food">Restaurants</a></li>
+                        <li><a href="category.html?type=healthcare">Healthcare</a></li>
+                        <li><a href="category.html?type=education">Education</a></li>
+                        <li><a href="category.html?type=home">Home Services</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Connect With Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="me-2"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="mt-3">
+                        <h6>Newsletter</h6>
+                        <form class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Enter your email">
+                                <button class="btn btn-primary" type="submit">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2024 LocalFinder. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="privacy.html" class="text-light me-3">Privacy Policy</a>
+                    <a href="terms.html" class="text-light">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
