@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Test Fallback",
+      "email": "fallback_test_user@example.com",
+      "password": "$2a$10$h3KjYlX0SibqG18NHb6/9.yUcn8NjV8/iYYfavZmRG3gXcytGYTja",
+      "full_name": "Test Fallback",
+      "phone": "9999999999",
+      "address": "Local",
+      "user_type": "user",
+      "created_at": "2026-03-31T15:55:29.383Z",
+      "updated_at": "2026-03-31T16:00:28.312Z",
+      "last_login": "2026-03-31T16:00:28.310Z"
+    },
+    {
+      "id": 2,
+      "username": "Doppa Pujitha",
+      "email": "poojithadoppa8@gmail.com",
+      "password": "$2a$10$ZDg4Hfzg5PxA9POWq/i1B.isXTEMZ6zPksFkdN8s5jJPjqSZxalYy",
+      "full_name": "Doppa Pujitha",
+      "phone": "06301363635",
+      "address": "palakandyam village,g.sigadam mandal",
+      "user_type": "user",
+      "created_at": "2026-03-31T16:02:30.330Z",
+      "updated_at": "2026-03-31T16:02:47.233Z",
+      "last_login": "2026-03-31T16:02:47.233Z"
+    }
+  ]
+}
